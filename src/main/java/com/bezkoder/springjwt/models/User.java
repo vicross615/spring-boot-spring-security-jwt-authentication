@@ -1,5 +1,6 @@
 package com.bezkoder.springjwt.models;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,12 @@ public class User {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserProfile userProfile;
+
+	@Enumerated(EnumType.STRING)
+	private VerificationStatus verificationStatus;
 
 	public User() {
 	}
@@ -85,5 +92,21 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public com.bezkoder.springjwt.models.UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public VerificationStatus getVerificationStatus() {
+		return verificationStatus;
+	}
+
+	public void setVerificationStatus(VerificationStatus verificationStatus) {
+		this.verificationStatus = verificationStatus;
 	}
 }
